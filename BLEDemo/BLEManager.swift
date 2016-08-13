@@ -120,7 +120,7 @@ class BLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         for characteristic in service.characteristics! {
             myCharacteristic = characteristic
-            log("Characteristic discoverd: \(myCharacteristic.UUID)" )
+            log("Characteristic discovered: \(myCharacteristic.UUID)" )
             
             sendConnect()
         }
