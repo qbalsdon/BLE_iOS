@@ -8,17 +8,43 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BLEProtocol {
 
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var sendText: UITextField!
+    @IBOutlet weak var logLabel: UILabel!
+    
+    var manager: BLEManager = BLEManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        manager.logger = self
+        logLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+    }
+    
+    @IBAction func sendTapped(sender: AnyObject, forEvent event: UIEvent) {
+        manager.sendData(sendText.text!)
+        log("SENT: [\(sendText.text!)]")
+        sendText.text = "";
+    }
+    
+    func log(data: String) {
+        dispatch_async(dispatch_get_main_queue(),{
+            self.logLabel.text = "\(data)\n \(self.logLabel.text!)"
+            print(data)
+        })
+    }
+    
+    func onReady() {
+        statusLabel.text = "Connected"
+        statusLabel.backgroundColor = UIColor.greenColor()
+    }
+    
+    func onDisconnect() {
+        statusLabel.text = "Disconnected"
+        statusLabel.backgroundColor = UIColor.redColor()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
 }

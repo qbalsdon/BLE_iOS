@@ -12,6 +12,8 @@
 		56A194101D0BFE4800A72BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A1940E1D0BFE4800A72BA6 /* Main.storyboard */; };
 		56A194121D0BFE4800A72BA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56A194111D0BFE4800A72BA6 /* Assets.xcassets */; };
 		56A194151D0BFE4800A72BA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A194131D0BFE4800A72BA6 /* LaunchScreen.storyboard */; };
+		56A1941D1D0BFEB600A72BA6 /* BLEProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A1941C1D0BFEB600A72BA6 /* BLEProtocol.swift */; };
+		56A194231D0BFF6A00A72BA6 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A194221D0BFF6A00A72BA6 /* BLEManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		56A194111D0BFE4800A72BA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56A194141D0BFE4800A72BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56A194161D0BFE4800A72BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56A1941C1D0BFEB600A72BA6 /* BLEProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEProtocol.swift; sourceTree = "<group>"; };
+		56A194221D0BFF6A00A72BA6 /* BLEManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				56A194111D0BFE4800A72BA6 /* Assets.xcassets */,
 				56A194131D0BFE4800A72BA6 /* LaunchScreen.storyboard */,
 				56A194161D0BFE4800A72BA6 /* Info.plist */,
+				56A1941C1D0BFEB600A72BA6 /* BLEProtocol.swift */,
+				56A194221D0BFF6A00A72BA6 /* BLEManager.swift */,
 			);
 			path = BLEDemo;
 			sourceTree = "<group>";
@@ -96,6 +102,7 @@
 				TargetAttributes = {
 					56A194061D0BFE4800A72BA6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = GTMDCB3F3C;
 					};
 				};
 			};
@@ -136,7 +143,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				56A1940D1D0BFE4800A72BA6 /* ViewController.swift in Sources */,
+				56A194231D0BFF6A00A72BA6 /* BLEManager.swift in Sources */,
 				56A1940B1D0BFE4800A72BA6 /* AppDelegate.swift in Sources */,
+				56A1941D1D0BFEB600A72BA6 /* BLEProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +260,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = BLEDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.balsdon.BLEDemo;
@@ -262,6 +273,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = BLEDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.balsdon.BLEDemo;
@@ -288,6 +301,7 @@
 				56A1941B1D0BFE4800A72BA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
