@@ -9,7 +9,7 @@
 import Foundation
 
 protocol BLEProtocol {
-    func log(data: String)
+    func log(_ data: String)
     func onReady()
     func onDisconnect()
 }

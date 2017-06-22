@@ -19,17 +19,17 @@ class ViewController: UIViewController, BLEProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.logger = self
-        logLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        logLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
-    @IBAction func sendTapped(sender: AnyObject, forEvent event: UIEvent) {
+    @IBAction func sendTapped(_ sender: AnyObject, forEvent event: UIEvent) {
         manager.sendData(sendText.text!)
         log("SENT: [\(sendText.text!)]")
         sendText.text = "";
     }
     
-    func log(data: String) {
-        dispatch_async(dispatch_get_main_queue(),{
+    func log(_ data: String) {
+        DispatchQueue.main.async(execute: {
             self.logLabel.text = "\(data)\n \(self.logLabel.text!)"
             print(data)
         })
@@ -37,12 +37,12 @@ class ViewController: UIViewController, BLEProtocol {
     
     func onReady() {
         statusLabel.text = "Connected"
-        statusLabel.backgroundColor = UIColor.greenColor()
+        statusLabel.backgroundColor = UIColor.green
     }
     
     func onDisconnect() {
         statusLabel.text = "Disconnected"
-        statusLabel.backgroundColor = UIColor.redColor()
+        statusLabel.backgroundColor = UIColor.red
     }
 
 

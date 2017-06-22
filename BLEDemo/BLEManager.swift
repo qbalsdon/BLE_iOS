@@ -17,7 +17,7 @@ class BLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var myCharacteristic : CBCharacteristic!
     var logger: BLEProtocol!
     
-    func log(text: String) {
+    func log(_ text: String) {
         print(text)
         if (logger != nil) {
             logger.log(text)
@@ -43,20 +43,20 @@ class BLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         sendDisconnect()
     }
     
-    func centralManagerDidUpdateState(central: CBCentralManager) {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-        case .Unsupported:
+        case .unsupported:
             log("Unsupported")
-        case .Unauthorized:
+        case .unauthorized:
             log("Unauthorized")
-        case .Unknown:
+        case .unknown:
             log("Unknown")
-        case .Resetting:
+        case .resetting:
             log("Resettinhg")
-        case .PoweredOn:
+        case .poweredOn:
             log("Powering on")
             startScanning()
-        case .PoweredOff:
+        case .poweredOff:
             log("Powering off")
         }
     }
@@ -65,24 +65,24 @@ class BLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         log("Scanning")
         sendDisconnect()
         let serviceUUID = CBUUID(string: UUID);
-        centralManager.scanForPeripheralsWithServices([serviceUUID], options: nil)
+        centralManager.scanForPeripherals(withServices: [serviceUUID], options: nil)
     }
     
-    func showState(peripheral: CBPeripheral) {
+    func showState(_ peripheral: CBPeripheral) {
         switch peripheral.state {
-        case .Connected:
+        case .connected:
             log("Peripheral: Connected")
-        case .Connecting:
+        case .connecting:
             log("Peripheral: Connecting")
-        case .Disconnected:
+        case .disconnected:
             log("Peripheral: Disconnected")
             startScanning()
-        case .Disconnecting:
+        case .disconnecting:
             log("Peripheral: Disconnecting")
         }
     }
     
-    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if (peripheral.name != nil) {
             log("\(peripheral.name!) : \(RSSI) dBm")
         }
@@ -93,49 +93,49 @@ class BLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         central.stopScan()
         myPeripheral.delegate = self
-        central.connectPeripheral(myPeripheral, options: nil)
+        central.connect(myPeripheral, options: nil)
         
         showState(myPeripheral)
     }
     
-    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         log("Connected")
         showState(myPeripheral)
         myPeripheral.discoverServices(nil)
     }
     
-    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         log("Disconnect")
         showState(myPeripheral)
         sendDisconnect()
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in myPeripheral.services! {
-            log("Service discoverd: \(service.UUID)" )
-            myPeripheral.discoverCharacteristics(nil, forService: service)
+            log("Service discoverd: \(service.uuid)" )
+            myPeripheral.discoverCharacteristics(nil, for: service)
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
             myCharacteristic = characteristic
-            log("Characteristic discovered: \(myCharacteristic.UUID)" )
+            log("Characteristic discovered: \(myCharacteristic.uuid)" )
             
             sendConnect()
         }
     }
     
-    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-        let value = NSString(data: characteristic.value!, encoding: NSUTF8StringEncoding)
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        let value = NSString(data: characteristic.value!, encoding: String.Encoding.utf8.rawValue)
         
-        log("\(value)")
+        log("\(String(describing: value))")
     }
     
-    func sendData(value: String) {
-        myPeripheral.writeValue(value.dataUsingEncoding(NSUTF8StringEncoding)!,
-                                forCharacteristic: myCharacteristic,
-                                type: CBCharacteristicWriteType.WithoutResponse)
+    func sendData(_ value: String) {
+        myPeripheral.writeValue(value.data(using: String.Encoding.utf8)!,
+                                for: myCharacteristic,
+                                type: CBCharacteristicWriteType.withoutResponse)
         
     }
 }
